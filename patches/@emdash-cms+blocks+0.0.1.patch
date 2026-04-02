@@ -1,0 +1,23 @@
+diff --git a/node_modules/@emdash-cms/blocks/dist/index.js b/node_modules/@emdash-cms/blocks/dist/index.js
+index 5c9fac6..faa4c92 100644
+--- a/node_modules/@emdash-cms/blocks/dist/index.js
++++ b/node_modules/@emdash-cms/blocks/dist/index.js
+@@ -634,10 +634,17 @@ function ChartBlockComponent({ block }) {
+ 
+ //#endregion
+ //#region src/blocks/code.tsx
++const SUPPORTED_CODE_LANGS = new Set(["ts", "tsx", "jsonc", "bash", "css"]);
++const CODE_LANG_ALIASES = { json: "jsonc", javascript: "ts", typescript: "ts", js: "ts", sh: "bash", shell: "bash" };
++function normalizeCodeLang(lang) {
++	if (!lang) return "bash";
++	if (SUPPORTED_CODE_LANGS.has(lang)) return lang;
++	return CODE_LANG_ALIASES[lang] ?? "bash";
++}
+ function CodeBlockComponent({ block }) {
+ 	return /* @__PURE__ */ jsx(CodeBlock, {
+ 		code: block.code,
+-		lang: block.language
++		lang: normalizeCodeLang(block.language)
+ 	});
+ }
+ 
