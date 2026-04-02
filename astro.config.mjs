@@ -18,8 +18,7 @@ export default defineConfig({
 		emdash({
 			database: d1({ binding: "DB", session: "auto" }),
 			storage: r2({ binding: "MEDIA" }),
-			plugins: [formsPlugin()],
-			sandboxed: [webhookNotifierPlugin()],
+			plugins: [formsPlugin(), webhookNotifierPlugin()],
 			sandboxRunner: sandbox(),
 			marketplace: "https://marketplace.emdashcms.com",
 		}),
